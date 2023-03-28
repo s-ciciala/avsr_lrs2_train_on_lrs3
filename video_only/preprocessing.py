@@ -103,31 +103,6 @@ def get_filelist():
     return filesList
 
 
-def generate_noise_file(filesList):
-    # Generating a 1 hour noise file
-    # Fetching audio samples from 20 random files in the dataset and adding them up to generate noise
-    # The length of these clips is the shortest audio sample among the 20 samples
-    print("\n\nGenerating the noise file ....")
-
-    noise = np.empty((0))
-    while len(noise) < 16000 * 3600:
-        noisePart = np.zeros(16000 * 60)
-        indices = np.random.randint(0, len(filesList), 20)
-        for ix in indices:
-            sampFreq, audio = wavfile.read(filesList[ix] + ".wav")
-            audio = audio / np.max(np.abs(audio))
-            pos = np.random.randint(0, abs(len(audio) - len(noisePart)) + 1)
-            if len(audio) > len(noisePart):
-                noisePart = noisePart + audio[pos:pos + len(noisePart)]
-            else:
-                noisePart = noisePart[pos:pos + len(audio)] + audio
-        noise = np.concatenate([noise, noisePart], axis=0)
-    noise = noise[:16000 * 3600]
-    noise = (noise / 20) * 32767
-    noise = np.floor(noise).astype(np.int16)
-    wavfile.write(args["DATA_DIRECTORY"] + "/noise.wav", 16000, noise)
-
-    print("\nNoise file generated.")
 
 
 def preprocess_all_samples(filesList,device):
@@ -427,8 +402,8 @@ if __name__ == "__main__":
     # preprocess_all_samples(fileList)
     # generate_noise_file(fileList)
     # preprocess_all_samples(fileList,device)
-    preprocess_all_samples(train)
-    preprocess_all_samples(pretrain)
+    preprocess_all_samples(train,device)
+    preprocess_all_samples(pretrain,device)
     # generate_train_file(train)
     # generate_val_file(val)
     # generate_test_file(test)
