@@ -62,10 +62,12 @@ args["STFT_OVERLAP"] = 0.030    #consecutive window overlap in secs while comput
 args["GPU"] = "cuda"
 args["LIMITGPU"] = True
 # args["GPU"] = "cuda:1,2"
+##ELLSWORTH CONFIG
 args["GPUID"] = [2,3,1]
-args["SEED"] = 19220297 #seed for random number generators
 args["BATCH_SIZE"] = 4 #minibatch size
 args["STEP_SIZE"] = 16384   #number of samples in one step (virtual epoch)
+##ELLSWORTH CONFIG
+args["SEED"] = 19220297 #seed for random number generators
 args["NUM_STEPS"] = 1000 #maximum number of steps to train for (early stopping is used)
 args["SAVE_FREQUENCY"] = 2 #saving the model weights and loss/metric plots after every these many steps
 args["CHECKPOINTS"] = False
