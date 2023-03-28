@@ -37,7 +37,9 @@ args["INDEX_TO_CHAR"] = {1:" ", 22:"'", 30:"1", 29:"0", 37:"3", 32:"2", 34:"5", 
 args["PRETRAIN_CONTINUE_TRAINING"] = True
 args["PRETRAIN_AUDIO_MODEL"] = "../../pre_models/pre_models/audio-only.pt"
 args["ALREADY_TRAINED"] = False
-
+args["PRETRAIN_SET_SIZE"] = 5000 #samples
+args["PRETRAIN_SET_NAME"] = "pretrain"
+args["TEST_SET_NAME"] = "test"
 
 
 
