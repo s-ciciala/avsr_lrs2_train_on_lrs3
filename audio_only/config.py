@@ -40,6 +40,7 @@ args["ALREADY_TRAINED"] = False
 args["PRETRAIN_SET_SIZE"] = 5000 #samples
 args["PRETRAIN_SET_NAME"] = "pretrain"
 args["TEST_SET_NAME"] = "test"
+args["TRAIN_SET_NAME"] = "trainval"
 
 
 
