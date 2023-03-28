@@ -411,7 +411,7 @@ if __name__ == "__main__":
     # generate_train_file(train)
     # generate_val_file(val)
     # generate_test_file(test)
-    # generate_extended_test_file(test,pretrain)
+    generate_extended_test_file(test,pretrain)
     train_NOT_IN_USE , pretrain_NOT_IN_USE = generate_extended_train_file(train,pretrain)
     check_files_correct_len(train, val, test, pretrain,[train_NOT_IN_USE,pretrain_NOT_IN_USE])
     print("Completed")
