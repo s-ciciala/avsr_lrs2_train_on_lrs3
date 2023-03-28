@@ -3,15 +3,17 @@ from os.path import isfile, join
 
 import torch
 import os
+import os.path
+from os import listdir
+from os.path import isfile, join
 from tqdm import tqdm
-from scipy.io import wavfile
 import numpy as np
-import collections
 
-from sklearn.model_selection import train_test_split
 from config import args
+from models.visual_frontend import VisualFrontend
 from utils.preprocessing import preprocess_sample
-
+from sklearn.model_selection import train_test_split
+import collections
 
 def set_device():
     np.random.seed(args["SEED"])
@@ -128,9 +130,18 @@ def generate_noise_file(filesList):
     print("\nNoise file generated.")
 
 
-def preprocess_all_samples(filesList):
+def preprocess_all_samples(filesList,device):
     # declaring the visual frontend module
     # Preprocessing each sample
+    vf = VisualFrontend()
+    torch.cuda.empty_cache()
+    print("Device is " + str(device))
+    os.environ["CUDA_AVAILABLE_DEVICES"] = "0,1,2,3"
+    print("Forcing device is " + str(device))
+    # vf.load_state_dict(torch.load(args["TRAINED_FRONTEND_FILE"], map_location=device))
+    device = "cpu"
+    vf.load_state_dict(torch.load(args["TRAINED_FRONTEND_FILE"], map_location=device))
+    vf.to(device)
     params = {"roiSize":args["ROI_SIZE"], "normMean":args["NORMALIZATION_MEAN"], "normStd":args["NORMALIZATION_STD"], "vf":vf}
     print("\nNumber of data samples to be processed = %d" % (len(filesList)))
     print("\n\nStarting preprocessing ....\n")
