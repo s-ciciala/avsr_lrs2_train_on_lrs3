@@ -243,7 +243,7 @@ def generate_test_file(test):
 def generate_extended_test_file(test,pretrain):
     # Generating val.txt for splitting the pretrain set into validation sets
     test_dir = args["TEST_DIRECTORY"]
-    pretrain_dir = args["PRETRAIN_DIRECTORY"]
+    pretrain_dir = args["PRETRAIN_AUDIO_MODEL"]
     test_dir_file = args["DATA_DIRECTORY"] + "/extended_test.txt"
     example_dict = {
         "ID": [],
@@ -392,6 +392,11 @@ def check_files_correct_len(train, val, test,pretrain,extended_train_NOT_IN_USE)
     print("Expected extended test len: " + str(extended_test_len) + " Got test len: " + str(extended_test_file_len))
     print("Expected extended train len: " + str(extended_train_len - extended_train_len_NOT_IN_USE) + " Got test len: " + str(extended_train_file_len))
 
+def remove_null_examples(file):
+    with open(file) as f:
+        for line in f:
+            print
+            print("Line{}: {}".format(count, line.strip()))
 
 
 if __name__ == "__main__":
