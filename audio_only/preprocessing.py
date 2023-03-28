@@ -395,8 +395,8 @@ def check_files_correct_len(train, val, test,pretrain,extended_train_NOT_IN_USE)
 def remove_null_examples(file):
     with open(file) as f:
         for line in f:
-            print
-            print("Line{}: {}".format(count, line.strip()))
+            print(line)
+
 
 
 if __name__ == "__main__":
