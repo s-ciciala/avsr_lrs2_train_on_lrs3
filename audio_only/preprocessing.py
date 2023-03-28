@@ -397,21 +397,25 @@ def remove_and_check_for_null_examples(file):
         for line in f:
             print(line)
             print(line.split(" "))
+            id = line.split(" ")[0]
+            rest = line.split(" ")[1:]
+            print(id)
+            print(rest)
             exit()
 
 
 
 if __name__ == "__main__":
-    device = set_device()
-    fileList = get_filelist()
-    print("File List complete")
-    train, val = split_trainval(fileList)
-    test = [x for x in fileList if (args["TEST_SET_NAME"] in x)]
-    pretrain = [x for x in fileList if (args["PRETRAIN_SET_NAME"] in x)]
-    pretrain = pretrain[:args["PRETRAIN_SET_SIZE"] ]
-    print("Size of train set" + str(len(train)))
-    print("Size of val set:" + str(len(val)))
-    print("Size of test set:" + str(len(test)))
+    # device = set_device()
+    # fileList = get_filelist()
+    # print("File List complete")
+    # train, val = split_trainval(fileList)
+    # test = [x for x in fileList if (args["TEST_SET_NAME"] in x)]
+    # pretrain = [x for x in fileList if (args["PRETRAIN_SET_NAME"] in x)]
+    # pretrain = pretrain[:args["PRETRAIN_SET_SIZE"] ]
+    # print("Size of train set" + str(len(train)))
+    # print("Size of val set:" + str(len(val)))
+    # print("Size of test set:" + str(len(test)))
     # preprocess_all_samples(fileList)
     # generate_noise_file(fileList)
     # preprocess_all_samples(fileList,device)
