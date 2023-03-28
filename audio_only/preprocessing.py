@@ -188,16 +188,13 @@ def generate_val_file(val):
         text_file = val_dir + ".txt"
         with open(text_file, "r") as f:
             lines = f.readlines()
-            # print(text_file)
             examples_npy_dir = text_file.split("txt")[0][:-1]
-            # print(examples_npy_dir)
-            example_dict["ID"].append(examples_npy_dir)
             string_to_add = str(lines[0][6: -1])
             if "{" in string_to_add:
                 string_to_add = lrs3_parse(string_to_add)
-            # print(string_to_add)
-            example_dict["TEXT"].append(string_to_add)
-            # print(example_dict)
+            if args["MAX_CHAR_LEN"] > len(string_to_add) >= 2:
+                example_dict["ID"].append(examples_npy_dir)
+                example_dict["TEXT"].append(string_to_add)
 
     if os.path.isfile(val_dir_file):
         os.remove(val_dir_file)
@@ -261,7 +258,7 @@ def generate_extended_test_file(test,pretrain):
             if "{" in string_to_add:
                 string_to_add = lrs3_parse(string_to_add)
             # print(string_to_add)
-            if len(string_to_add) < args["MAX_CHAR_LEN"]:
+            if args["MAX_CHAR_LEN"] > len(string_to_add) >= 2:
                 example_dict["ID"].append(examples_npy_dir)
                 example_dict["TEXT"].append(string_to_add)
             # print(example_dict)
@@ -277,7 +274,7 @@ def generate_extended_test_file(test,pretrain):
             if "{" in string_to_add:
                 string_to_add = lrs3_parse(string_to_add)
             # print(string_to_add)
-            if len(string_to_add) < args["MAX_CHAR_LEN"]:
+            if args["MAX_CHAR_LEN"] > len(string_to_add) >= 2:
                 example_dict["ID"].append(examples_npy_dir)
                 example_dict["TEXT"].append(string_to_add)
 
@@ -405,25 +402,25 @@ def remove_and_check_for_null_examples(file):
 
 
 if __name__ == "__main__":
-    # device = set_device()
-    # fileList = get_filelist()
-    # print("File List complete")
-    # train, val = split_trainval(fileList)
-    # test = [x for x in fileList if (args["TEST_SET_NAME"] in x)]
-    # pretrain = [x for x in fileList if (args["PRETRAIN_SET_NAME"] in x)]
-    # pretrain = pretrain[:args["PRETRAIN_SET_SIZE"] ]
-    # print("Size of train set" + str(len(train)))
-    # print("Size of val set:" + str(len(val)))
-    # print("Size of test set:" + str(len(test)))
+    device = set_device()
+    fileList = get_filelist()
+    print("File List complete")
+    train, val = split_trainval(fileList)
+    test = [x for x in fileList if (args["TEST_SET_NAME"] in x)]
+    pretrain = [x for x in fileList if (args["PRETRAIN_SET_NAME"] in x)]
+    pretrain = pretrain[:args["PRETRAIN_SET_SIZE"] ]
+    print("Size of train set" + str(len(train)))
+    print("Size of val set:" + str(len(val)))
+    print("Size of test set:" + str(len(test)))
     # preprocess_all_samples(fileList)
     # generate_noise_file(fileList)
     # preprocess_all_samples(fileList,device)
-    # generate_train_file(train)
-    # generate_val_file(val)
-    # generate_test_file(test)
+    generate_train_file(train)
+    generate_val_file(val)
+    generate_test_file(test)
     # generate_extended_test_file(test,pretrain)
     # train_NOT_IN_USE , pretrain_NOT_IN_USE = generate_extended_train_file(train,pretrain)
     # check_files_correct_len(train, val, test, pretrain,[train_NOT_IN_USE,pretrain_NOT_IN_USE])
-    file = args["DATA_DIRECTORY"] + "/extended_train.txt"
-    remove_and_check_for_null_examples(file)
+    # file = args["DATA_DIRECTORY"] + "/extended_train.txt"
+    # remove_and_check_for_null_examples(file)
     print("Completed")
