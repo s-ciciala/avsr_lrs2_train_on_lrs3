@@ -52,7 +52,7 @@ args["TRAIN_SET_NAME"] = "trainval"
 
 #audio preprocessing
 args["MAX_CHAR_LEN"] = 100 #Characters
-args["NOISE_PROBABILITY"] = 0.25    #noise addition probability while training
+args["NOISE_PROBABILITY"] = 0.10    #noise addition probability while training
 args["NOISE_SNR_DB"] = 0    #noise level in dB SNR
 args["STFT_WINDOW"] = "hamming" #window to use while computing STFT
 args["STFT_WIN_LENGTH"] = 0.040 #window size in secs for computing STFT
