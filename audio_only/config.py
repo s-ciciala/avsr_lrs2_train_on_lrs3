@@ -65,7 +65,7 @@ args["LIMITGPU"] = True
 ##ELLSWORTH CONFIG
 args["GPUID"] = [2,3,1]
 args["BATCH_SIZE"] = 4 #minibatch size
-args["STEP_SIZE"] = 16384   #number of samples in one step (virtual epoch)
+args["STEP_SIZE"] = 6020   #number of samples in one step (virtual epoch)
 ##ELLSWORTH CONFIG
 args["SEED"] = 19220297 #seed for random number generators
 args["NUM_STEPS"] = 1000 #maximum number of steps to train for (early stopping is used)
