@@ -309,7 +309,7 @@ def generate_extended_train_file(train,pretrain):
             string_to_add = str(lines[0][6: -1])
             if "{" in string_to_add:
                 string_to_add = lrs3_parse(string_to_add)
-            if len(string_to_add) < args["MAX_CHAR_LEN"]:
+            if args["MAX_CHAR_LEN"] > len(string_to_add) > 0:
                 example_dict["ID"].append(examples_npy_dir)
                 example_dict["TEXT"].append(string_to_add)
             else:
@@ -323,7 +323,7 @@ def generate_extended_train_file(train,pretrain):
             string_to_add = str(lines[0][6: -1])
             if "{" in string_to_add:
                 string_to_add = lrs3_parse(string_to_add)
-            if len(string_to_add) < args["MAX_CHAR_LEN"]:
+            if args["MAX_CHAR_LEN"] > len(string_to_add) > 0:
                 example_dict["ID"].append(examples_npy_dir)
                 example_dict["TEXT"].append(string_to_add)
             else:

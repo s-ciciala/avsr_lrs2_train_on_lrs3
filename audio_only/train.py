@@ -37,6 +37,7 @@ def set_device():
 
 def get_training_data(device, kwargs):
     dataset = "train"
+    dataset = "extended_train"
     datadir = args["DATA_DIRECTORY"]
     reqInpLen = args["MAIN_REQ_INPUT_LENGTH"]
     charToIx = args["CHAR_TO_INDEX"]
@@ -52,15 +53,6 @@ def get_training_data(device, kwargs):
 
     trainLoader = DataLoader(trainData, batch_size=args["BATCH_SIZE"], collate_fn=collate_fn, shuffle=True, **kwargs)
 
-    ###CHECK BATCH INDEX
-    # myiter = iter(trainLoader)
-    # myiter.__next__()
-    # one, two, three, four, five = next(iter(trainLoader))
-    # print(one,two,three,four,five)
-    # print("*"*80)
-    # print(five)
-    # exit()
-    ###CHECK BATCH INDEX
 
     noiseParams = {"noiseFile": args["DATA_DIRECTORY"] + "/noise.wav", "noiseProb": 0, "noiseSNR": args["NOISE_SNR_DB"]}
 
