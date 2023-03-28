@@ -341,7 +341,7 @@ def generate_extended_train_file(train,pretrain):
 
 
 def split_trainval(fileList):
-    trainval_only = [x for x in fileList if (args["TRAIN_SET"] in x)]
+    trainval_only = [x for x in fileList if (args["TRAIN_SET_NAME"] in x)]
     print("We have a total of :" + str(len(trainval_only)))
     print("Now we want a split 80/20")
     train, val = train_test_split(trainval_only, test_size=.20, shuffle=False)
@@ -396,8 +396,6 @@ def check_files_correct_len(train, val, test,pretrain,extended_train_NOT_IN_USE)
 if __name__ == "__main__":
     device = set_device()
     fileList = get_filelist()
-    # fileList = filer_lengths(fileList)
-    # fileList = check_valid_dirs(fileList)
     print("File List complete")
     train, val = split_trainval(fileList)
     test = [x for x in fileList if (args["TEST_SET_NAME"] in x)]
