@@ -68,10 +68,10 @@ args["SAVE_FREQUENCY"] = 10 #saving the model weights and loss/metric plots afte
 args["CHECKPOINTS"] = False
 
 #optimizer and scheduler
-args["INIT_LR"] = 1e-4  #initial learning rate for scheduler
+args["INIT_LR"] = 1e-5  #initial learning rate for scheduler
 args["FINAL_LR"] = 1e-6 #final learning rate for scheduler
 args["LR_SCHEDULER_FACTOR"] = 0.5   #learning rate decrease factor for scheduler
-args["LR_SCHEDULER_WAIT"] = 25  #number of steps to wait to lower learning rate
+args["LR_SCHEDULER_WAIT"] = 500  #number of steps to wait to lower learning rate
 args["LR_SCHEDULER_THRESH"] = 0.001 #threshold to check plateau-ing of wer
 args["MOMENTUM1"] = 0.9 #optimizer momentum 1 value
 args["MOMENTUM2"] = 0.999   #optimizer momentum 2 value
