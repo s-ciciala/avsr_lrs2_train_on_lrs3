@@ -37,7 +37,7 @@ def set_device():
 
 def get_training_data(device, kwargs):
     dataset = "train"
-    dataset = "extended_train"
+    # dataset = "extended_train"
     datadir = args["DATA_DIRECTORY"]
     reqInpLen = args["MAIN_REQ_INPUT_LENGTH"]
     charToIx = args["CHAR_TO_INDEX"]
