@@ -395,13 +395,14 @@ def check_files_correct_len(train, val, test,pretrain,extended_train_NOT_IN_USE)
 def remove_and_check_for_null_examples(file):
     with open(file) as f:
         for line in f:
-            print(line)
-            print(line.split(" "))
+            # print(line)
+            # print(line.split(" "))
             id = line.split(" ")[0]
             rest = line.split(" ")[1:]
-            print(id)
-            print(rest)
-            exit()
+            # print(id)
+            if len(rest) == 0:
+                exit()
+                print("NULL EXAMPLES PRESENT")
 
 
 
