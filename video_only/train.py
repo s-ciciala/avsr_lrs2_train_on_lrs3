@@ -193,8 +193,6 @@ if __name__ == "__main__":
     videoParams = {"videoFPS": args["VIDEO_FPS"]}
     trainData, trainLoader, valData, valLoader, model = get_training_data(device, kwargs)
     optimizer, scheduler, loss_function = get_optimiser_and_checkpoint_dir(model)
-    if args["CONTINUE_TRAINING"] is not None:
-      model, optimizer, start_epoch = load_ckp(args["CONTINUE_TRAINING"], model, optimizer)
     trainingLossCurve = list()
     validationLossCurve = list()
     trainingWERCurve = list()

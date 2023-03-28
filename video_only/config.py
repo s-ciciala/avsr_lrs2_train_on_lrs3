@@ -74,7 +74,7 @@ args["LIMITGPU"] = True
 ##starleader CONFIG
 args["GPUID"] = [0,1,2,3]
 args["BATCH_SIZE"] = 8 #minibatch size
-args["STEP_SIZE"] = 24080   #number of samples in one step (virtual epoch)
+args["STEP_SIZE"] = 23973   #number of samples in one step (virtual epoch)
 ##starleader CONFIG
 args["SEED"] = 19220297 #seed for random number generators
 args["NUM_STEPS"] = 5000 #maximum number of steps to train for (early stopping is used)
