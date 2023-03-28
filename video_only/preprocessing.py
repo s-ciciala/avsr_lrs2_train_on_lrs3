@@ -139,7 +139,7 @@ def preprocess_all_samples(filesList,device):
     os.environ["CUDA_AVAILABLE_DEVICES"] = "0,1,2,3"
     print("Forcing device is " + str(device))
     # vf.load_state_dict(torch.load(args["TRAINED_FRONTEND_FILE"], map_location=device))
-    device = "cpu"
+    # device = "cpu"
     vf.load_state_dict(torch.load(args["TRAINED_FRONTEND_FILE"], map_location=device))
     vf.to(device)
     params = {"roiSize":args["ROI_SIZE"], "normMean":args["NORMALIZATION_MEAN"], "normStd":args["NORMALIZATION_STD"], "vf":vf}
