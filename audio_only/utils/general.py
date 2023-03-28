@@ -43,28 +43,20 @@ def train(model, trainLoader, optimizer, loss_function, device, trainParams):
         inputLenBatch, targetLenBatch = (inputLenBatch.int()).to(device), (targetLenBatch.int()).to(device)
         optimizer.zero_grad()
         model.train()
-        model.module.listener.flatten_parameters()
-        model.module.speller.flatten_parameters()
         outputBatch = model(inputBatch)
 
         with torch.backends.cudnn.flags(enabled=True):
             arry = []
             for btch in inputLenBatch:
-                # print("HERE")
-                # print(btch)
                 if len(outputBatch) < btch:
                     arry.append(len(outputBatch))
                 else:
                     arry.append(btch)
             new_inputLenBatch = torch.tensor(arry, dtype=torch.int32, device=device)
             loss = loss_function(outputBatch, targetBatch, new_inputLenBatch, targetLenBatch)
+
         loss.backward()
         optimizer.step()
-        if loss.item() == math.inf:
-            print(trainLoader.dataset.datalist[index])
-            print(trainLoader)
-            print(trainLoader.dataset[index])
-            exit()
         trainingLoss = trainingLoss + loss.item()
         predictionBatch, predictionLenBatch = ctc_greedy_decode(outputBatch.detach(), inputLenBatch,
                                                                 trainParams["eosIx"])
@@ -72,8 +64,6 @@ def train(model, trainLoader, optimizer, loss_function, device, trainParams):
         trainingWER = trainingWER + compute_wer(predictionBatch, targetBatch, predictionLenBatch, targetLenBatch,
                                                 trainParams["spaceIx"])
 
-    # print("LEN OF TRAIN lOADER")
-    # print(len(trainLoader))
     trainingLoss = trainingLoss / len(trainLoader)
     trainingCER = trainingCER / len(trainLoader)
     trainingWER = trainingWER / len(trainLoader)

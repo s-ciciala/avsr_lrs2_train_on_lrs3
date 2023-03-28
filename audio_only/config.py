@@ -33,6 +33,20 @@ args["INDEX_TO_CHAR"] = {1:" ", 22:"'", 30:"1", 29:"0", 37:"3", 32:"2", 34:"5", 
                          26:"X", 28:"Z", 39:"<EOS>"}    #index to character reverse mapping
 
 
+
+args["PRETRAIN_CONTINUE_TRAINING"] = True
+args["PRETRAIN_AUDIO_MODEL"] = "../../pre_models/pre_models/audio-only.pt"
+args["ALREADY_TRAINED"] = False
+
+
+
+
+
+
+
+
+
+
 #audio preprocessing
 args["MAX_CHAR_LEN"] = 100 #Characters
 args["NOISE_PROBABILITY"] = 0.25    #noise addition probability while training

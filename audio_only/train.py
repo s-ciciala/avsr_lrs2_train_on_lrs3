@@ -97,17 +97,23 @@ def get_optimiser_and_checkpoint_dir(model):
                                                      threshold=args["LR_SCHEDULER_THRESH"],
                                                      threshold_mode="abs", min_lr=args["FINAL_LR"], verbose=True)
     loss_function = nn.CTCLoss(blank=0, zero_infinity=True)
-    if args["CHECKPOINTS"]:
-        if os.path.exists(args["CODE_DIRECTORY"] + "/checkpoints"):
-            while True:
-                ch = input("Continue and remove the 'checkpoints' directory? y/n: ")
-                if ch == "y":
-                    break
-                elif ch == "n":
-                    exit()
-                else:
-                    print("Invalid input")
-            shutil.rmtree(args["CODE_DIRECTORY"] + "/checkpoints")
+    if args["PRETRAIN_CONTINUE_TRAINING"]:
+        new_state_dict = {}
+        try:
+            saved_state_dict = torch.load(args["TRAINED_MODEL_FILE"], map_location=device)
+            model_epoch = saved_state_dict["epoch"]
+            model_state_dict = saved_state_dict["model_state_dict"]
+            optimizer_state_dict = saved_state_dict["optimizer_state_dict"]
+            model_loss = saved_state_dict["loss"]
+            for k, v in model_state_dict.items():
+                name = k.replace('module.', '')  # remove the "module." prefix
+                new_state_dict[name] = v
+        except:
+            for k, v in model_state_dict.items():
+                name = k.replace('module.', '')  # remove the "module." prefix
+                new_state_dict[name] = v
+
+        model.load_state_dict(new_state_dict)
 
     if not os.path.exists(args["CODE_DIRECTORY"] + "audio_only_checkpoints/"):
         os.makedirs(args["CODE_DIRECTORY"] + "audio_only_checkpoints/")
