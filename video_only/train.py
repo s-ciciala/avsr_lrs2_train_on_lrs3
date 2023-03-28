@@ -26,8 +26,8 @@ def set_device():
     matplotlib.use("Agg")
     np.random.seed(args["SEED"])
     torch.manual_seed(args["SEED"])
-    if not (torch.cuda.is_available()):
-        exit()
+    # if not (torch.cuda.is_available()):
+    #     exit()
     device = torch.device(str(args["GPU"]) if len(available_gpus) != 0 else "cpu")
     kwargs = {"num_workers": args["NUM_WORKERS"], "pin_memory": True} if torch.cuda.is_available() else {}
     torch.backends.cudnn.deterministic = True
@@ -38,6 +38,7 @@ def set_device():
 def get_training_data(device, kwargs):
     videoParams = {"videoFPS": args["VIDEO_FPS"]}
     dataset = "train"
+    dataset = "extended_train"
     datadir = args["DATA_DIRECTORY"]
     reqInpLen = args["MAIN_REQ_INPUT_LENGTH"]
     charToIx = args["CHAR_TO_INDEX"]
@@ -60,15 +61,10 @@ def get_training_data(device, kwargs):
         model = nn.DataParallel(model, device_ids=args["GPUID"])
     else:
         model = nn.DataParallel(model)
-
-    model.to(device)
+    model.to(f'cuda:{model.device_ids[0]}')
+    # model.to(device)
     return trainData, trainLoader, valData, valLoader, model
 
-def load_ckp(checkpoint_fpath, model, optimizer):
-    checkpoint = torch.load(checkpoint_fpath)
-    model.load_state_dict(model.state_dict())
-    optimizer.load_state_dict(optimizer.state_dict())
-    return model, optimizer, args["EPOCHS_SO_FAR"]
 
 def get_optimiser_and_checkpoint_dir(model):
     optimizer = optim.Adam(model.parameters(), lr=args["INIT_LR"], betas=(args["MOMENTUM1"], args["MOMENTUM2"]))
@@ -77,17 +73,27 @@ def get_optimiser_and_checkpoint_dir(model):
                                                      threshold=args["LR_SCHEDULER_THRESH"],
                                                      threshold_mode="abs", min_lr=args["FINAL_LR"], verbose=True)
     loss_function = nn.CTCLoss(blank=0, zero_infinity=True)
-    if args["CHECKPOINTS"]:
-        if os.path.exists(args["CODE_DIRECTORY"] + "/checkpoints"):
-            while True:
-                ch = input("Continue and remove the 'checkpoints' directory? y/n: ")
-                if ch == "y":
-                    break
-                elif ch == "n":
-                    exit()
-                else:
-                    print("Invalid input")
-            shutil.rmtree(args["CODE_DIRECTORY"] + "/checkpoints")
+    if args["PRETRAIN_CONTINUE_TRAINING"]:
+        new_state_dict = {}
+        saved_state_dict = torch.load(args["PRETRAIN_AUDIO_MODEL"] , map_location=device)
+        try:
+            model_epoch = saved_state_dict["epoch"]
+            model_state_dict = saved_state_dict["model_state_dict"]
+            optimizer_state_dict = saved_state_dict["optimizer_state_dict"]
+            model_loss = saved_state_dict["loss"]
+            for k, v in model_state_dict.items():
+                # name = k.replace('module.', '')  # remove the "module." prefix
+                name = "module." + k
+                new_state_dict[name] = v
+        except:
+            for k, v in saved_state_dict.items():
+                # name = k.replace('module.', '')  # remove the "module." prefix
+                name = k
+                # print("HERE"*80)
+                # print(name)
+                name = "module." + k
+                new_state_dict[name] = v
+        model.load_state_dict(new_state_dict)
 
     if not os.path.exists(args["CODE_DIRECTORY"] + "video_only_checkpoints/"):
         os.makedirs(args["CODE_DIRECTORY"] + "video_only_checkpoints/")

@@ -39,6 +39,16 @@ args["INDEX_TO_CHAR"] = {1:" ", 22:"'", 30:"1", 29:"0", 37:"3", 32:"2", 34:"5", 
                          26:"X", 28:"Z", 39:"<EOS>"}    #index to character reverse mapping
 
 
+args["PRETRAIN_CONTINUE_TRAINING"] = True
+args["PRETRAIN_AUDIO_MODEL"] = "../../pre_models/pre_models/audio-only.pt"
+args["PRETRAIN_VIDEO_MODEL"] = "../../pre_models/pre_models/video-only.pt"
+args["ALREADY_TRAINED"] = False
+args["PRETRAIN_SET_SIZE"] = 5000 #samples
+args["PRETRAIN_SET_NAME"] = "pretrain"
+args["TEST_SET_NAME"] = "test"
+args["TRAIN_SET_NAME"] = "trainval"
+
+
 #audio preprocessing
 args["NOISE_PROBABILITY"] = 0.25    #noise addition probability while training
 args["NOISE_SNR_DB"] = 0    #noise level in dB SNR
