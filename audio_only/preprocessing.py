@@ -363,6 +363,7 @@ def check_files_correct_len(train, val, test,pretrain,extended_train_NOT_IN_USE)
     train_dir_file = args["DATA_DIRECTORY"] + "/train.txt"
     test_dir_file = args["DATA_DIRECTORY"] + "/test.txt"
     extnended_test_dir_file = args["DATA_DIRECTORY"] + "/extended_test.txt"
+    extnended_train_dir_file = args["DATA_DIRECTORY"] + "/extended_train.txt"
 
     with open(train_dir_file) as f:
         text = f.readlines()
@@ -380,7 +381,7 @@ def check_files_correct_len(train, val, test,pretrain,extended_train_NOT_IN_USE)
         text = f.readlines()
         extended_test_file_len = len(text)
 
-    with open(extended_train_len) as f:
+    with open(extnended_train_dir_file) as f:
         text = f.readlines()
         extended_train_file_len = len(text)
 
