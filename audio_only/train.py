@@ -108,11 +108,13 @@ def get_optimiser_and_checkpoint_dir(model):
             for k, v in model_state_dict.items():
                 # name = k.replace('module.', '')  # remove the "module." prefix
                 name = k
+
                 new_state_dict[name] = v
         except:
             for k, v in saved_state_dict.items():
                 # name = k.replace('module.', '')  # remove the "module." prefix
                 name = k
+                print(k)
                 new_state_dict[name] = v
 
         model.load_state_dict(new_state_dict)
