@@ -131,10 +131,11 @@ def generate_noise_file(filesList):
 def preprocess_all_samples(filesList):
     # declaring the visual frontend module
     # Preprocessing each sample
+    params = {"roiSize":args["ROI_SIZE"], "normMean":args["NORMALIZATION_MEAN"], "normStd":args["NORMALIZATION_STD"], "vf":vf}
     print("\nNumber of data samples to be processed = %d" % (len(filesList)))
     print("\n\nStarting preprocessing ....\n")
     for file in tqdm(filesList, leave=True, desc="Preprocess", ncols=75):
-        preprocess_sample(file)
+        preprocess_sample(file, params)
     print("\nPreprocessing Done.")
 
 
