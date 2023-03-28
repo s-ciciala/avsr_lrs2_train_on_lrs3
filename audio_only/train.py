@@ -99,8 +99,8 @@ def get_optimiser_and_checkpoint_dir(model):
     loss_function = nn.CTCLoss(blank=0, zero_infinity=True)
     if args["PRETRAIN_CONTINUE_TRAINING"]:
         new_state_dict = {}
+        saved_state_dict = torch.load(args["TRAINED_MODEL_FILE"], map_location=device)
         try:
-            saved_state_dict = torch.load(args["TRAINED_MODEL_FILE"], map_location=device)
             model_epoch = saved_state_dict["epoch"]
             model_state_dict = saved_state_dict["model_state_dict"]
             optimizer_state_dict = saved_state_dict["optimizer_state_dict"]
@@ -109,7 +109,7 @@ def get_optimiser_and_checkpoint_dir(model):
                 name = k.replace('module.', '')  # remove the "module." prefix
                 new_state_dict[name] = v
         except:
-            for k, v in model_state_dict.items():
+            for k, v in saved_state_dict.items():
                 name = k.replace('module.', '')  # remove the "module." prefix
                 new_state_dict[name] = v
 
