@@ -396,6 +396,8 @@ def remove_null_examples(file):
     with open(file) as f:
         for line in f:
             print(line)
+            print(line.split(" "))
+            exit()
 
 
 
@@ -416,7 +418,9 @@ if __name__ == "__main__":
     # generate_train_file(train)
     # generate_val_file(val)
     # generate_test_file(test)
-    generate_extended_test_file(test,pretrain)
-    train_NOT_IN_USE , pretrain_NOT_IN_USE = generate_extended_train_file(train,pretrain)
-    check_files_correct_len(train, val, test, pretrain,[train_NOT_IN_USE,pretrain_NOT_IN_USE])
+    # generate_extended_test_file(test,pretrain)
+    # train_NOT_IN_USE , pretrain_NOT_IN_USE = generate_extended_train_file(train,pretrain)
+    # check_files_correct_len(train, val, test, pretrain,[train_NOT_IN_USE,pretrain_NOT_IN_USE])
+    file = args["DATA_DIRECTORY"] + "/extended_train.txt"
+    remove_null_examples(file)
     print("Completed")
