@@ -392,7 +392,7 @@ def check_files_correct_len(train, val, test,pretrain,extended_train_NOT_IN_USE)
     print("Expected extended test len: " + str(extended_test_len) + " Got test len: " + str(extended_test_file_len))
     print("Expected extended train len: " + str(extended_train_len - extended_train_len_NOT_IN_USE) + " Got test len: " + str(extended_train_file_len))
 
-def remove_null_examples(file):
+def remove_and_check_for_null_examples(file):
     with open(file) as f:
         for line in f:
             print(line)
@@ -422,5 +422,5 @@ if __name__ == "__main__":
     # train_NOT_IN_USE , pretrain_NOT_IN_USE = generate_extended_train_file(train,pretrain)
     # check_files_correct_len(train, val, test, pretrain,[train_NOT_IN_USE,pretrain_NOT_IN_USE])
     file = args["DATA_DIRECTORY"] + "/extended_train.txt"
-    remove_null_examples(file)
+    remove_and_check_for_null_examples(file)
     print("Completed")
