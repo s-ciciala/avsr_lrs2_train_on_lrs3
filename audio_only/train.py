@@ -71,15 +71,15 @@ def get_training_data(device, kwargs):
 
     # declaring the model, optimizer, scheduler and the loss function
     #PREVIOUS DECLIRATION OF AUDIONET
-    # model = AudioNet(args["TX_NUM_FEATURES"], args["TX_ATTENTION_HEADS"], args["TX_NUM_LAYERS"], args["PE_MAX_LENGTH"],
-    #                  args["AUDIO_FEATURE_SIZE"], args["TX_FEEDFORWARD_DIM"], args["TX_DROPOUT"], args["NUM_CLASSES"])
+    model = AudioNet(args["TX_NUM_FEATURES"], args["TX_ATTENTION_HEADS"], args["TX_NUM_LAYERS"], args["PE_MAX_LENGTH"],
+                     args["AUDIO_FEATURE_SIZE"], args["TX_FEEDFORWARD_DIM"], args["TX_DROPOUT"], args["NUM_CLASSES"])
     #LSTM DECLIRATION
-    model = AudioNet(dModel=args["TX_NUM_FEATURES"],
-                     numLayers=args["TX_NUM_LAYERS"],
-                     inSize=args["AUDIO_FEATURE_SIZE"],
-                     fcHiddenSize=args["TX_FEEDFORWARD_DIM"],
-                     dropout=args["TX_DROPOUT"],
-                     numClasses=args["NUM_CLASSES"])
+    # model = AudioNet(dModel=args["TX_NUM_FEATURES"],
+    #                  numLayers=args["TX_NUM_LAYERS"],
+    #                  inSize=args["AUDIO_FEATURE_SIZE"],
+    #                  fcHiddenSize=args["TX_FEEDFORWARD_DIM"],
+    #                  dropout=args["TX_DROPOUT"],
+    #                  numClasses=args["NUM_CLASSES"])
 
     ##added multiprocessing
     if args["LIMITGPU"]:
