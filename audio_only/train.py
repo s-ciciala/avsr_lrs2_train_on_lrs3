@@ -78,7 +78,8 @@ def get_training_data(device, kwargs):
         model = nn.DataParallel(model, device_ids=args["GPUID"])
     else:
         model = nn.DataParallel(model)
-    model.to(device)
+    model.to(f'cuda:{model.device_ids[0]}')
+    # model.to(device)
     return trainData, trainLoader, valData, valLoader, model
 
 
