@@ -38,6 +38,21 @@ args["INDEX_TO_CHAR"] = {1:" ", 22:"'", 30:"1", 29:"0", 37:"3", 32:"2", 34:"5", 
                          11:"L", 4:"O", 7:"N", 27:"Q", 21:"P", 8:"S", 10:"R", 13:"U", 3:"T", 15:"W", 23:"V", 14:"Y",
                          26:"X", 28:"Z", 39:"<EOS>"}    #index to character reverse mapping
 
+args["VIDEO_RESULTS_TEXT_FILENAME"] = "test_results_video_only_train-step_2680-wer_1.053.txt"
+args["TRAINED_VIDEO_MODEL_FILE"] = "../../curr_trained_models/video/train-step_2680-wer_1.053.pt"   #relative path to the trained model file
+
+args["AUDIO_RESULTS_TEXT_FILENAME"] = "test_results_audio_only_train-step_1950-wer_1.000.txt"
+args["TRAINED_AUDIO_MODEL_FILE"] = "../../curr_trained_models/audio/train-step_1950-wer_1.000.pt"   #relative path to the trained model file
+
+args["AUDIO_VISUAL_RESULTS_TEXT_FILENAME"] = "test_results_audio_video_train-step_2210-wer_0.677.txt"
+args["TRAINED_AUDIO_VISUAL_MODEL_FILE"] = "../../curr_trained_models/audio_video/train-step_2210-wer_0.677.pt"   #relative path to the trained model file
+
+args["PRETRAINED_AUDIO_MODEL_FILE"] = "../../pre_models/pre_models/audio-only.pt"
+args["PRETRAINED_VIDEO_MODEL_FILE"] = "../../pre_models/pre_models/video-only.pt"
+args["PRETRAINED_AUDIO_VIDEO_MODEL_FILE"] = "../../pre_models/pre_models/audio-visual.pt"
+
+
+
 args["PRETRAIN_CONTINUE_TRAINING"] = True
 args["PRETRAIN_AUDIO_MODEL"] = "../../pre_models/pre_models/audio-only.pt"
 args["PRETRAIN_VIDEO_MODEL"] = "../../pre_models/pre_models/video-only.pt"
