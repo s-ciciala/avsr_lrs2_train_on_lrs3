@@ -134,6 +134,20 @@ def evaluate(model, evalLoader, loss_function, device, evalParams):
         evalCER = evalCER + compute_cer(predictionBatch, targetBatch, predictionLenBatch, targetLenBatch)
         evalWER = evalWER + compute_wer(predictionBatch, targetBatch, predictionLenBatch, targetLenBatch, evalParams["spaceIx"])
 
+        index_to_char = args["INDEX_TO_CHAR"]
+        predictionString = ""
+        for i in range(len(predictionBatch)):
+            item_idx = predictionBatch[i].item()
+            charrr = index_to_char[item_idx]
+            predictionString += str(charrr)
+        predictionStrings.append(predictionString)
+        targetString = ""
+        for i in range(len(targetBatch)):
+            item_idx = targetBatch[i].item()
+            charrr = index_to_char[item_idx]
+            targetString += str(charrr)
+        targetStrings.append(targetString)
+
     evalLoss = evalLoss/len(evalLoader)
     evalCER = evalCER/len(evalLoader)
     evalWER = evalWER/len(evalLoader)
