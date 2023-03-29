@@ -38,6 +38,14 @@ args["INDEX_TO_CHAR"] = {1:" ", 22:"'", 30:"1", 29:"0", 37:"3", 32:"2", 34:"5", 
                          11:"L", 4:"O", 7:"N", 27:"Q", 21:"P", 8:"S", 10:"R", 13:"U", 3:"T", 15:"W", 23:"V", 14:"Y",
                          26:"X", 28:"Z", 39:"<EOS>"}    #index to character reverse mapping
 
+args["PRETRAIN_CONTINUE_TRAINING"] = True
+args["PRETRAIN_AUDIO_MODEL"] = "../../pre_models/pre_models/audio-only.pt"
+args["PRETRAIN_VIDEO_MODEL"] = "../../pre_models/pre_models/video-only.pt"
+args["ALREADY_TRAINED"] = False
+args["PRETRAIN_SET_SIZE"] = 5000 #samples
+args["PRETRAIN_SET_NAME"] = "pretrain"
+args["TEST_SET_NAME"] = "test"
+args["TRAIN_SET_NAME"] = "trainval"
 
 #audio preprocessing
 args["MAX_CHAR_LEN"] = 100 #Characters
