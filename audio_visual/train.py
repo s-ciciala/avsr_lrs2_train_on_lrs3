@@ -76,7 +76,8 @@ def get_optimiser_and_checkpoint_dir(model):
 
     if args["PRETRAIN_CONTINUE_TRAINING"]:
         new_state_dict = {}
-        saved_state_dict = torch.load(args["PRETRAIN_AUDIO_MODEL"] , map_location=device)
+
+        saved_state_dict = torch.load(args["PRETRAIN_AUDIO_VIDEO_MODEL"] , map_location=device)
         try:
             model_epoch = saved_state_dict["epoch"]
             model_state_dict = saved_state_dict["model_state_dict"]
