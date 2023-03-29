@@ -35,6 +35,7 @@ def set_device():
 
 def get_training_data(device, kwargs):
     dataset = "train"
+    dataset = "train"
     datadir = args["DATA_DIRECTORY"]
     reqInpLen = args["MAIN_REQ_INPUT_LENGTH"]
     charToIx = args["CHAR_TO_INDEX"]
@@ -73,17 +74,27 @@ def get_optimiser_and_checkpoint_dir(model):
     loss_function = nn.CTCLoss(blank=0, zero_infinity=True)
 
 
-    #removing the checkpoints directory if it exists and remaking it
-    # if os.path.exists(args["CODE_DIRECTORY"] + "/checkpoints"):
-    #     while True:
-    #         ch = input("Continue and remove the 'checkpoints' directory? y/n: ")
-    #         if ch == "y":
-    #             break
-    #         elif ch == "n":
-    #             exit()
-    #         else:
-    #             print("Invalid input")
-    #     shutil.rmtree(args["CODE_DIRECTORY"] + "/checkpoints")
+    if args["PRETRAIN_CONTINUE_TRAINING"]:
+        new_state_dict = {}
+        saved_state_dict = torch.load(args["PRETRAIN_AUDIO_MODEL"] , map_location=device)
+        try:
+            model_epoch = saved_state_dict["epoch"]
+            model_state_dict = saved_state_dict["model_state_dict"]
+            optimizer_state_dict = saved_state_dict["optimizer_state_dict"]
+            model_loss = saved_state_dict["loss"]
+            for k, v in model_state_dict.items():
+                # name = k.replace('module.', '')  # remove the "module." prefix
+                name = "module." + k
+                new_state_dict[name] = v
+        except:
+            for k, v in saved_state_dict.items():
+                # name = k.replace('module.', '')  # remove the "module." prefix
+                name = k
+                # print("HERE"*80)
+                # print(name)
+                name = "module." + k
+                new_state_dict[name] = v
+        model.load_state_dict(new_state_dict)
     if not os.path.exists(args["CODE_DIRECTORY"] + "audio_video_checkpoints/"):
         os.makedirs(args["CODE_DIRECTORY"] + "audio_video_checkpoints/")
     if not os.path.exists(args["CODE_DIRECTORY"] + "audio_video_checkpoints/models"):
