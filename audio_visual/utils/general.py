@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 from .metrics import compute_cer, compute_wer
 from .decoders import ctc_greedy_decode, ctc_search_decode
-
+from config import args
 
 
 def num_params(model):
@@ -89,7 +89,8 @@ def evaluate(model, evalLoader, loss_function, device, evalParams):
     evalLoss = 0
     evalCER = 0
     evalWER = 0
-
+    predictionStrings = []
+    targetStrings = []
     for batch, (inputBatch, targetBatch, inputLenBatch, targetLenBatch) in enumerate(tqdm(evalLoader, leave=False, desc="Eval",
                                                                                           ncols=75)):
 
@@ -136,4 +137,22 @@ def evaluate(model, evalLoader, loss_function, device, evalParams):
     evalLoss = evalLoss/len(evalLoader)
     evalCER = evalCER/len(evalLoader)
     evalWER = evalWER/len(evalLoader)
+    if args["DISPLAY_PREDICTIONS"]:
+        for i in range(len(predictionStrings)):
+            print("------------------PREDICTION------------------")
+            print("------------------PREDICTION------------------")
+            print(predictionStrings[i])
+            print("------------------TARGET------------------")
+            print("------------------TARGET------------------")
+            print(targetStrings[i])
+        with open(args["VIDEO_RESULTS_TEXT_FILENAME"] , 'w') as f:
+            for i in range(len(predictionStrings)):
+                f.write("------------------TARGET------------------\n")
+                f.write("%s\n" % str(targetStrings[i]))
+                f.write("------------------PREDICTION------------------\n")
+                f.write("%s\n" % str(predictionStrings[i]))
+            f.write("\n" + "evalLoss: " + str(evalLoss))
+            f.write("\n" + "evalCER: " + str(evalCER))
+            f.write("\n" + "evalWER: " + str(evalWER))
+
     return evalLoss, evalCER, evalWER
