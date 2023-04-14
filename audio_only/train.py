@@ -79,7 +79,7 @@ def get_training_data(device, kwargs):
     else:
         model = nn.DataParallel(model)
     # model.to(f'cuda:{model.device_ids[0]}')
-    # model.to(device)
+    model.to(device)
     return trainData, trainLoader, valData, valLoader, model
 
 
