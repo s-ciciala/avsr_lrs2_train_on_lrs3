@@ -64,7 +64,7 @@ args["LIMITGPU"] = True
 # args["GPU"] = "cuda:1,2"
 ##ELLSWORTH CONFIG
 args["GPUID"] = [2,3,1,0]
-args["BATCH_SIZE"] = 32 #minibatch size
+args["BATCH_SIZE"] = 30 #minibatch size
 ##Dudley CONFIG
 # args["GPUID"] = [0,1,2,3,4,5,]
 # args["BATCH_SIZE"] = 128 #minibatch size
