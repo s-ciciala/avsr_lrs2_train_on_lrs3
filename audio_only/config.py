@@ -64,7 +64,7 @@ args["LIMITGPU"] = True
 # args["GPU"] = "cuda:1,2"
 ##ELLSWORTH CONFIG
 args["GPUID"] = [2,3,1]
-args["BATCH_SIZE"] = 4 #minibatch size
+args["BATCH_SIZE"] = 256 #minibatch size
 args["STEP_SIZE"] = 24080   #number of samples in one step (virtual epoch)
 ##ELLSWORTH CONFIG
 args["SEED"] = 19220297 #seed for random number generators
