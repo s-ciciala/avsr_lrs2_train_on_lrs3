@@ -4,14 +4,14 @@ args = dict()
 
 
 #project structure
-args["CODE_DIRECTORY"] = "../../avsr_lrs3_CTRS/"   #absolute path to the code directory
+args["CODE_DIRECTORY"] = "../../avsr_lrs2_train_on_lrs3/"   #absolute path to the code directory
 args["DATA_DIRECTORY"] = "../../lrs3"  #absolute path to the data directory
 args["TRAIN_DIRECTORY"] = "../../lrs3/" + "trainval/"
 args["TEST_DIRECTORY"] = "../../lrs3/" + "pretrain/"
 args["TEST_SIZE"] = 1000
 args["VAL_DIRECTORY"] = "../../lrs3/" + "test/"
 args["TRAINVAL_DIRECTORY"] = "../../lrs3/" + "pretrain/"
-args["DEMO_DIRECTORY"] = "../../avsr_lrs3_CTRS/audio_only/demo/"   #absolute path to the demo directory
+args["DEMO_DIRECTORY"] = "../../avsr_lrs2_train_on_lrs3/audio_only/demo/"   #absolute path to the demo directory
 args["PRETRAINED_MODEL_FILE"] = "/final/models/pretrained_model.pt"     #relative path to the pretrained model file
 # args["TRAINED_MODEL_FILE"] = "/final/models/trained_model.pt"   #relative path to the trained model file
 args["TRAINED_MODEL_FILE"] = "audio_only_checkpoints/models/train-step_0970-wer_1.043.pt"   #relative path to the trained model file
