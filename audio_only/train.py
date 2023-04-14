@@ -113,12 +113,12 @@ def get_optimiser_and_checkpoint_dir(model):
 
         model.load_state_dict(new_state_dict)
 
-    if not os.path.exists(args["CODE_DIRECTORY"] + "audio_only_checkpoints/"):
-        os.makedirs(args["CODE_DIRECTORY"] + "audio_only_checkpoints/")
-    if not os.path.exists(args["CODE_DIRECTORY"] + "audio_only_checkpoints/models"):
-        os.makedirs(args["CODE_DIRECTORY"] + "audio_only_checkpoints/models")
-    if not os.path.exists(args["CODE_DIRECTORY"] + "audio_only_checkpoints/plots"):
-        os.makedirs(args["CODE_DIRECTORY"] + "audio_only_checkpoints/plots")
+    if not os.path.exists(args["CODE_DIRECTORY"] + "audio_only_pretrain_checkpoints/"):
+        os.makedirs(args["CODE_DIRECTORY"] + "audio_only_pretrain_checkpoints/")
+    if not os.path.exists(args["CODE_DIRECTORY"] + "audio_only_pretrain_checkpoints/models"):
+        os.makedirs(args["CODE_DIRECTORY"] + "audio_only_pretrain_checkpoints/models")
+    if not os.path.exists(args["CODE_DIRECTORY"] + "audio_only_pretrain_checkpoints/plots"):
+        os.makedirs(args["CODE_DIRECTORY"] + "audio_only_pretrain_checkpoints/plots")
 
     return optimizer, scheduler, loss_function
 
