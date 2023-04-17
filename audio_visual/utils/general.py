@@ -79,18 +79,18 @@ def train(model, trainLoader, optimizer, loss_function, device, trainParams):
 
 
 
-def evaluate(model, evalLoader, loss_function, device, evalParams):
-
-    """
-    Function to evaluate the model over validation/test set. It computes the loss, CER and WER over the evaluation set.
-    The CTC decode scheme can be set to either 'greedy' or 'search'.
-    """
-
-    evalLoss = 0
-    evalCER = 0
-    evalWER = 0
-    predictionStrings = []
-    targetStrings = []
+# def evaluate(model, evalLoader, loss_function, device, evalParams):
+#
+#     """
+#     Function to evaluate the model over validation/test set. It computes the loss, CER and WER over the evaluation set.
+#     The CTC decode scheme can be set to either 'greedy' or 'search'.
+#     """
+#
+#     evalLoss = 0
+#     evalCER = 0
+#     evalWER = 0
+#     predictionStrings = []
+#     targetStrings = []
     for batch, (inputBatch, targetBatch, inputLenBatch, targetLenBatch) in enumerate(tqdm(evalLoader, leave=False, desc="Eval",
                                                                                           ncols=75)):
 

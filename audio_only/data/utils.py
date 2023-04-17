@@ -21,8 +21,6 @@ def prepare_main_input(audioFile, targetFile, noise, reqInpLen, charToIx, noiseS
     """
 
     if targetFile is not None:
-        # print("FILE")
-        # print(targetFile)
         #reading the target from the target file and converting each character to its corresponding index
         with open(targetFile, "r") as f:
             trgt = f.readline().strip()[7:]
@@ -35,9 +33,9 @@ def prepare_main_input(audioFile, targetFile, noise, reqInpLen, charToIx, noiseS
         trgtLen = len(trgt)
 
         #the target length must be less than or equal to 100 characters (restricted space where our model will work)
-#         if trgtLen > 100:
-#             print("Target length more than 100 characters. Exiting")
-#             exit()
+        if trgtLen > 100:
+            print("Target length more than 100 characters. Exiting")
+            exit()
 
     #STFT feature extraction
     stftWindow = audioParams["stftWindow"]

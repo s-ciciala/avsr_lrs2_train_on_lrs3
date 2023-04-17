@@ -7,7 +7,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
+# model = AudioNet(args["TX_NUM_FEATURES"], args["TX_ATTENTION_HEADS"], args["TX_NUM_LAYERS"], args["PE_MAX_LENGTH"],
+#                      args["AUDIO_FEATURE_SIZE"], args["TX_FEEDFORWARD_DIM"], args["TX_DROPOUT"], args["NUM_CLASSES"])
 # class AudioNet(nn.Module):
 #     def __init__(self, dModel, numLayers, inSize, fcHiddenSize, dropout, numClasses):
 #         super(AudioNet, self).__init__()
@@ -18,7 +19,7 @@ import torch.nn.functional as F
 #                                 bidirectional=True, batch_first=True)
 #
 #         # Attention Mechanism
-#         self.attention = nn.MultiheadAttention(embed_dim=dModel * 2, num_heads=1)
+#         self.attention = nn.MultiheadAttention(embed_dim=dModel * 2, num_heads=8)
 #
 #         # Speller (decoder) - LSTM
 #         self.speller = nn.LSTM(input_size=dModel * 2, hidden_size=dModel * 2, num_layers=numLayers, dropout=dropout,
@@ -50,27 +51,27 @@ import torch.nn.functional as F
 #         outputBatch = F.log_softmax(batch, dim=2)
 #
 #         return outputBatch
-    # def forward(self, inputBatch):
-    #     inputBatch = inputBatch.transpose(0, 1).transpose(1, 2)
-    #     batch = self.audioConv(inputBatch)
-    #     batch = batch.transpose(1, 2).transpose(0, 1)
-    #
-    #     # Listener (encoder) - Bidirectional LSTM
-    #     batch, _ = self.listener(batch)
-    #
-    #     # Attention Mechanism
-    #     attn_output, _ = self.attention(batch, batch, batch)
-    #
-    #     # Speller (decoder) - LSTM
-    #     speller_output, _ = self.speller(attn_output)
-    #
-    #     speller_output = speller_output.transpose(0, 1).transpose(1, 2)
-    #     batch = self.pool(speller_output)
-    #     batch = self.outputConv(batch)
-    #     batch = batch.transpose(1, 2).transpose(0, 1)
-    #     outputBatch = F.log_softmax(batch, dim=2)
-    #
-    #     return outputBatch
+#     def forward(self, inputBatch):
+#         inputBatch = inputBatch.transpose(0, 1).transpose(1, 2)
+#         batch = self.audioConv(inputBatch)
+#         batch = batch.transpose(1, 2).transpose(0, 1)
+#
+#         # Listener (encoder) - Bidirectional LSTM
+#         batch, _ = self.listener(batch)
+#
+#         # Attention Mechanism
+#         attn_output, _ = self.attention(batch, batch, batch)
+#
+#         # Speller (decoder) - LSTM
+#         speller_output, _ = self.speller(attn_output)
+#
+#         speller_output = speller_output.transpose(0, 1).transpose(1, 2)
+#         batch = self.pool(speller_output)
+#         batch = self.outputConv(batch)
+#         batch = batch.transpose(1, 2).transpose(0, 1)
+#         outputBatch = F.log_softmax(batch, dim=2)
+#
+#         return outputBatch
 # ###Previous transformer architecture
 class PositionalEncoding(nn.Module):
 
@@ -98,6 +99,15 @@ class PositionalEncoding(nn.Module):
 
 
 class AudioNet(nn.Module):
+    """
+    An audio-only speech transcription model based on the Transformer architecture.
+    Architecture: A stack of 12 Transformer encoder layers,
+                  first 6 form the Encoder and the last 6 form the Decoder.
+    Character Set: 26 alphabets (A-Z), 10 numbers (0-9), apostrophe ('), space ( ), blank (-), end-of-sequence (<EOS>)
+    Input: 321-dim STFT feature vectors with 100 vectors per second. Each group of 4 consecutive feature vectors
+           is linearly transformed into a single 512-dim feature vector giving 25 vectors per second.
+    Output: Log probabilities over the character set at each time step.
+    """
     def __init__(self, dModel, nHeads, numLayers, peMaxLen, inSize, fcHiddenSize, dropout, numClasses):
         super(AudioNet, self).__init__()
         self.audioConv = nn.Conv1d(inSize, dModel, kernel_size=4, stride=4, padding=0)
